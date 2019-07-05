@@ -1,0 +1,236 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="DemoDatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="TblCity">
+          <Key>
+            <PropertyRef Name="CityId" />
+          </Key>
+          <Property Name="CityId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CityName" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="TblPerson">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="Email" Type="varchar" MaxLength="50" />
+          <Property Name="Mobile" Type="varchar" MaxLength="50" />
+          <Property Name="Course" Type="varchar" MaxLength="50" />
+          <Property Name="Percentage" Type="varchar" MaxLength="50" />
+          <Property Name="Address" Type="varchar" MaxLength="50" />
+          <Property Name="City" Type="int" />
+        </EntityType>
+        <Association Name="FK__TblPerson__City__1DE57479">
+          <End Role="TblCity" Type="Self.TblCity" Multiplicity="0..1" />
+          <End Role="TblPerson" Type="Self.TblPerson" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TblCity">
+              <PropertyRef Name="CityId" />
+            </Principal>
+            <Dependent Role="TblPerson">
+              <PropertyRef Name="City" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="sp_insert_City" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="CityId" Type="int" Mode="In" />
+          <Parameter Name="CityName" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_insert_Person" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Id" Type="int" Mode="In" />
+          <Parameter Name="Name" Type="varchar" Mode="In" />
+          <Parameter Name="Email" Type="varchar" Mode="In" />
+          <Parameter Name="Mobile" Type="varchar" Mode="In" />
+          <Parameter Name="Course" Type="varchar" Mode="In" />
+          <Parameter Name="Percentage" Type="varchar" Mode="In" />
+          <Parameter Name="Address" Type="varchar" Mode="In" />
+          <Parameter Name="City" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_viewcity" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_viewperson" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="DemoDatabaseModelStoreContainer">
+          <EntitySet Name="TblCity" EntityType="Self.TblCity" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TblPerson" EntityType="Self.TblPerson" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__TblPerson__City__1DE57479" Association="Self.FK__TblPerson__City__1DE57479">
+            <End Role="TblCity" EntitySet="TblCity" />
+            <End Role="TblPerson" EntitySet="TblPerson" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DemoDatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="TblCity">
+          <Key>
+            <PropertyRef Name="CityId" />
+          </Key>
+          <Property Name="CityId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CityName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TblPersons" Relationship="Self.FK__TblPerson__City__1DE57479" FromRole="TblCity" ToRole="TblPerson" />
+        </EntityType>
+        <EntityType Name="TblPerson">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Mobile" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Course" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Percentage" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="City" Type="Int32" />
+          <NavigationProperty Name="TblCity" Relationship="Self.FK__TblPerson__City__1DE57479" FromRole="TblPerson" ToRole="TblCity" />
+        </EntityType>
+        <Association Name="FK__TblPerson__City__1DE57479">
+          <End Role="TblCity" Type="Self.TblCity" Multiplicity="0..1" />
+          <End Role="TblPerson" Type="Self.TblPerson" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TblCity">
+              <PropertyRef Name="CityId" />
+            </Principal>
+            <Dependent Role="TblPerson">
+              <PropertyRef Name="City" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DemoDatabaseEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="TblCities" EntityType="Self.TblCity" />
+          <EntitySet Name="TblPersons" EntityType="Self.TblPerson" />
+          <AssociationSet Name="FK__TblPerson__City__1DE57479" Association="Self.FK__TblPerson__City__1DE57479">
+            <End Role="TblCity" EntitySet="TblCities" />
+            <End Role="TblPerson" EntitySet="TblPersons" />
+          </AssociationSet>
+          <FunctionImport Name="sp_insert_City">
+            <Parameter Name="CityId" Mode="In" Type="Int32" />
+            <Parameter Name="CityName" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_insert_Person">
+            <Parameter Name="Id" Mode="In" Type="Int32" />
+            <Parameter Name="Name" Mode="In" Type="String" />
+            <Parameter Name="Email" Mode="In" Type="String" />
+            <Parameter Name="Mobile" Mode="In" Type="String" />
+            <Parameter Name="Course" Mode="In" Type="String" />
+            <Parameter Name="Percentage" Mode="In" Type="String" />
+            <Parameter Name="Address" Mode="In" Type="String" />
+            <Parameter Name="City" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_viewcity" ReturnType="Collection(DemoDatabaseModel.sp_viewcity_Result)" />
+          <FunctionImport Name="sp_viewperson" ReturnType="Collection(DemoDatabaseModel.sp_viewperson_Result)" />
+          <FunctionImport Name="Fun_InsertPerson" EntitySet="TblPersons" ReturnType="Collection(DemoDatabaseModel.TblPerson)">
+            <Parameter Name="Id" Mode="In" Type="Int32" />
+            <Parameter Name="Name" Mode="In" Type="String" />
+            <Parameter Name="Email" Mode="In" Type="String" />
+            <Parameter Name="Mobile" Mode="In" Type="String" />
+            <Parameter Name="Course" Mode="In" Type="String" />
+            <Parameter Name="Percentage" Mode="In" Type="String" />
+            <Parameter Name="Address" Mode="In" Type="String" />
+            <Parameter Name="City" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Fun_ViewPersons" EntitySet="TblPersons" ReturnType="Collection(DemoDatabaseModel.TblPerson)" />
+          <FunctionImport Name="Fun_ViewCity" EntitySet="TblCities" ReturnType="Collection(DemoDatabaseModel.TblCity)" />
+          <FunctionImport Name="Fun_InsertCity" EntitySet="TblCities" ReturnType="Collection(DemoDatabaseModel.TblCity)">
+            <Parameter Name="CityId" Mode="In" Type="Int32" />
+            <Parameter Name="CityName" Mode="In" Type="String" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="sp_viewcity_Result">
+          <Property Type="Int32" Name="CityId" Nullable="false" />
+          <Property Type="String" Name="CityName" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="sp_viewperson_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Email" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Mobile" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Course" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Percentage" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Address" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="City" Nullable="true" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DemoDatabaseModelStoreContainer" CdmEntityContainer="DemoDatabaseEntities">
+          <EntitySetMapping Name="TblCities">
+            <EntityTypeMapping TypeName="DemoDatabaseModel.TblCity">
+              <MappingFragment StoreEntitySet="TblCity">
+                <ScalarProperty Name="CityId" ColumnName="CityId" />
+                <ScalarProperty Name="CityName" ColumnName="CityName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TblPersons">
+            <EntityTypeMapping TypeName="DemoDatabaseModel.TblPerson">
+              <MappingFragment StoreEntitySet="TblPerson">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+                <ScalarProperty Name="Course" ColumnName="Course" />
+                <ScalarProperty Name="Percentage" ColumnName="Percentage" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="City" ColumnName="City" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_insert_City" FunctionName="DemoDatabaseModel.Store.sp_insert_City" />
+          <FunctionImportMapping FunctionImportName="sp_insert_Person" FunctionName="DemoDatabaseModel.Store.sp_insert_Person" />
+          <FunctionImportMapping FunctionImportName="sp_viewcity" FunctionName="DemoDatabaseModel.Store.sp_viewcity">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DemoDatabaseModel.sp_viewcity_Result">
+                <ScalarProperty Name="CityId" ColumnName="CityId" />
+                <ScalarProperty Name="CityName" ColumnName="CityName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_viewperson" FunctionName="DemoDatabaseModel.Store.sp_viewperson">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DemoDatabaseModel.sp_viewperson_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+                <ScalarProperty Name="Course" ColumnName="Course" />
+                <ScalarProperty Name="Percentage" ColumnName="Percentage" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="City" ColumnName="City" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Fun_InsertPerson" FunctionName="DemoDatabaseModel.Store.sp_insert_Person" />
+          <FunctionImportMapping FunctionImportName="Fun_ViewPersons" FunctionName="DemoDatabaseModel.Store.sp_viewperson" />
+          <FunctionImportMapping FunctionImportName="Fun_ViewCity" FunctionName="DemoDatabaseModel.Store.sp_viewcity" />
+          <FunctionImportMapping FunctionImportName="Fun_InsertCity" FunctionName="DemoDatabaseModel.Store.sp_insert_City" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,95 @@
+﻿@using X.PagedList.Mvc;
+@using X.PagedList;
+
+@model IPagedList<FullCodeBasedTest.Models.TblPerson>
+
+@{
+    ViewBag.Title = "Index";
+}
+<div class="pb-2 mt-4 mb-2 border-bottom">
+    <h2 class="text-center text-primary">
+        Person Details List.
+    </h2>
+</div>
+
+<br />
+@using (Html.BeginForm("Index", "Home", FormMethod.Get, htmlAttributes:new {@class ="form-inline float-sm-right" }))
+{
+    <div class="input-group">
+        <input type="text" class=" form-control" name="search" placeholder="Enter Person Name..." />
+        <span>&nbsp;&nbsp;</span>
+        <button class="btn btn-primary"><i class="fa fa-search"></i> Search</button>
+    </div>
+}
+<br />
+<table class="table">
+    <tr>
+        <th>
+            @Html.Hidden("Id")
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().Name)
+        </th>
+        <th>
+            @Html.DisplayName("Email Address")
+        </th>
+        <th>
+            @Html.DisplayName("Mobile")
+        </th>
+        <th>
+            @Html.DisplayName("Course")
+        </th>
+        <th>
+            @Html.DisplayName("Degree Percentage")
+        </th>
+        <th>
+            @Html.DisplayName("Recidential Address")
+        </th>
+        <th>
+            @Html.DisplayName("City Name")
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.HiddenFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Mobile)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Course)
+            </td>
+            <td class="text-center">
+                @Html.DisplayFor(modelItem => item.Percentage)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TblCity.CityName)
+            </td>
+            <td>
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
+
+</table>
+
+@Html.PagedListPager(Model, i => Url.Action("Index", "Home", new { i, search = Request.QueryString["search"] }),
+    new X.PagedList.Mvc.Common.PagedListRenderOptionsBase
+    {
+        LiElementClasses = new string[] { "page-item" },
+        PageClasses = new string[] { "page-link" }
+})
+
